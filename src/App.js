@@ -1,7 +1,7 @@
 import React,{useEffect, useState} from 'react';
 import './App.css';
 import TextField from '@material-ui/core/TextField';
-import Image from './bg.jpg';
+// import Image from '../src/files/bg.jpg'
 import styles from './App.css'
 import { Box, Button, makeStyles,Form, Typography } from '@material-ui/core';
 const useStyles = makeStyles({
@@ -16,7 +16,7 @@ const useStyles = makeStyles({
   leftContainer: {
       width: '27%',
       height: '80%',
-      backgroundImage: `url(${Image})`,
+      // backgroundImage: `url(${Image})`,
       backgroundSize: 'cover',
       
       borderRadius: '20px 0 0 20px'
@@ -85,6 +85,7 @@ setCity(data1.main)
     <Typography>Temp: {city.temp}</Typography>
     <Typography>Temp Min: {city.temp_min} </Typography>
     <Typography>Temp Max: {city.temp_max} </Typography>
+    <Typography>Temp desd: {city.description} </Typography>
     
 
    
