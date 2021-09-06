@@ -2,8 +2,8 @@ import React,{useEffect, useState} from 'react';
 import './App.css';
 import TextField from '@material-ui/core/TextField';
 // import Image from '../src/files/bg.jpg'
-import styles from './App.css'
-import { Box, Button, makeStyles,Form, Typography } from '@material-ui/core';
+
+import { Box, Button, makeStyles, Typography } from '@material-ui/core';
 const useStyles = makeStyles({
   component: {
       height: '100vh',
@@ -44,6 +44,7 @@ answer:{
 }
 
 })
+//api used == https://api.openweathermap.org/data/2.5/weather?q=kolkata&appid=1c22d527864c67e368247dcd3c57174a
 function App() { 
   const classes = useStyles();
   const [city,setCity] = useState();
@@ -54,7 +55,7 @@ const fetchApi=async ()=>{
  const response=await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${search}&units=metric&appid=1c22d527864c67e368247dcd3c57174a`)
 const data1=await response.json()
 console.log(data1)
-setCity(data1.main)
+setCity(data1)
 }
 
 
@@ -82,10 +83,12 @@ setCity(data1.main)
       {!city ? (<p>Data not dound</p>):
       (<div>
     <Typography>City Name: {search}</Typography>
-    <Typography>Temp: {city.temp}</Typography>
-    <Typography>Temp Min: {city.temp_min} </Typography>
-    <Typography>Temp Max: {city.temp_max} </Typography>
-    <Typography>Temp desd: {city.description} </Typography>
+    <Typography>Temp: {city.main && city.main.temp}</Typography>
+    <Typography>Temp Min: {city.main && city.main.temp_min} </Typography>
+    <Typography>Temp Max: { city.main && city.main.temp_max} </Typography>
+    <Typography>Temp  Mood: {city.weather && city.weather[0].description} </Typography>
+    <Typography>Temp : {city.weather && city.weather[0].icon} </Typography>
+    <Typography>Country: {city.sys && city.sys.country} </Typography>
     
 
    
