@@ -1,25 +1,105 @@
-import logo from './logo.svg';
+import React,{useEffect, useState} from 'react';
 import './App.css';
-
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-         right of the middle of th abt<code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import TextField from '@material-ui/core/TextField';
+import Image from './bg.jpg';
+import styles from './App.css'
+import { Box, Button, makeStyles,Form, Typography } from '@material-ui/core';
+const useStyles = makeStyles({
+  component: {
+      height: '100vh',
+      display: 'flex',
+      alignItems: 'center',
+      width: '65%',
+      margin: '0 auto'
+      
+  },
+  leftContainer: {
+      width: '27%',
+      height: '80%',
+      backgroundImage: `url(${Image})`,
+      backgroundSize: 'cover',
+      
+      borderRadius: '20px 0 0 20px'
+      
+  },
+  rightContainer: {
+      width: '73%',
+      height: '80%',
+      background: 'linear-gradient(to right, #e74c3c, #e67e22)',
+  },
+  centertContainer:{
+    height: '20 vh',
+    display: 'flex',
+    alignItems: 'center',
+    width: '65%',
+   padding:'0 0 0 150px'
+  ,
+answer:{
+  height: '20 vh',
+  display: 'flex',
+  alignItems: 'center',
+  width: '65%',
+ padding:'0 0 0 150px'
+}
 }
 
+})
+function App() { 
+  const classes = useStyles();
+  const [city,setCity] = useState();
+const [search,setSearch]=useState("");
+const fetchApi=async ()=>{
+ 
+  //e.preventDefault();
+ const response=await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${search}&units=metric&appid=1c22d527864c67e368247dcd3c57174a`)
+const data1=await response.json()
+console.log(data1)
+setCity(data1.main)
+}
+
+
+
+  useEffect(()=>{
+    fetchApi();
+ },[search] )
+    return(
+      <Box className={classes.component}>
+            <Box  className={classes.leftContainer}></Box>
+            <Box className={classes.rightContainer}>
+            <>
+      <div >
+        <Box className={classes.centertContainer}  widthboxshadow={3}> <TextField  type="search" 
+           className="inputFeild"
+            onChange = {(e) => setSearch(e.target.value)}id="standard-basic" label="Insert city name" />
+       <div><Button type = 'submit' variant="contained" color="secondary">
+  Get_Report
+</Button></div>
+</Box>
+            
+           
+          
+       <Box>
+      {!city ? (<p>Data not dound</p>):
+      (<div>
+    <Typography>City Name: {search}</Typography>
+    <Typography>Temp: {city.temp}</Typography>
+    <Typography>Temp Min: {city.temp_min} </Typography>
+    <Typography>Temp Max: {city.temp_max} </Typography>
+    
+
+   
+   </div>
+      
+      )}
+      <form noValidate autoComplete="off">
+ 
+</form>
+</Box>
+</div>
+        </>
+            </Box>
+        </Box>
+    );
+    
+}
 export default App;
